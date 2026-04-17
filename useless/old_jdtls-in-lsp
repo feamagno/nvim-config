@@ -1,0 +1,32 @@
+                ["jdtls"] = function()
+                    local lspconfig = require("lspconfig")
+                    local root_files = {
+                        "gradlew",
+                        "pom.xml",
+                        ".git",
+                    }
+                    -- Workspace directory (one per project)
+                    local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspace/" .. 
+                                                    vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
+                    lspconfig.jdtls.setup({
+                        cmd = { "jdtls", "-data", workspace_dir },
+                        capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(table.unpack(root_files)),
+                        settings = {
+                            java = {
+                                format = {
+                                    enabled = true,
+                                    -- you can add formatting options here if needed
+                                },
+                                completion = {
+                                    favoriteStaticMembers = {
+                                        "org.junit.jupiter.api.Assertions.*",
+                                        "org.mockito.Mockito.*",
+                                    },
+                                },
+                            }
+                        },
+                    })
+                end,
+
