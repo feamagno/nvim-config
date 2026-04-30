@@ -6,15 +6,16 @@ require('config.keymaps')
 require('config.lazy')
 
 vim.g.clipboard = {
-  name = "xclip",
+  name = "pbcopy",
   copy = {
-    ["+"] = { "xclip", "-selection", "clipboard" },
-    ["*"] = { "xclip", "-selection", "primary" },
+    ["+"] = { "pbcopy" },
+    ["*"] = { "pbcopy" },
   },
   paste = {
-    ["+"] = { "xclip", "-selection", "clipboard", "-o" },
-    ["*"] = { "xclip", "-selection", "primary", "-o" },
+    ["+"] = {  "pbcopy" },
+    ["*"] = {  "pbcopy" },
   },
+  cache_enabled = 0,
 }
 
 vim.api.nvim_create_autocmd('TextYankPost', {
