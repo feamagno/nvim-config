@@ -29,3 +29,4 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "100"
 
+vim.opt.guicursor = "a:block"
