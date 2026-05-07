@@ -23,7 +23,8 @@ return {
         mappings = {
           ["<space>"] = "toggle_node",
           ["<cr>"] = "open",
-          ["q"] = "close_window", -- Added this so you can close it with 'q'
+          ["q"] = "close_window", -- Added this so to close with 'q'
+          ["g"] = "close_window", -- Added this so to close with 'g'
         },
       },
       filesystem = {
