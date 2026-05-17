@@ -1,9 +1,10 @@
 -- require calling essential config
 require('config.options')
 require('config.keymaps')
+require('config.lazy')
+require('config.macros')
 -- require('config.jdtls')
 
-require('config.lazy')
 
 vim.g.clipboard = {
   name = "xclip",

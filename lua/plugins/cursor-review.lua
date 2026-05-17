@@ -1,15 +1,15 @@
-return {
-    {
-        "nCompass-tech/cursor-review.nvim",
-        dependencies = {
-            "lewis6991/gitsigns.nvim",
-            "sindrets/diffview.nvim",
-            "MunifTanjim/nui.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = function()
-            require("cursor-review").setup()
-        end,
-    }
-}
+--return {
+--    {
+--        "nCompass-tech/cursor-review.nvim",
+--        dependencies = {
+--            "lewis6991/gitsigns.nvim",
+--            "sindrets/diffview.nvim",
+--            "MunifTanjim/nui.nvim",
+--            "nvim-lua/plenary.nvim",
+--            "nvim-tree/nvim-web-devicons",
+--        },
+--        config = function()
+--            require("cursor-review").setup()
+--        end,
+--    }
+--}
