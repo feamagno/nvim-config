@@ -41,6 +41,14 @@ return {
         map('n', '<leader>hp', gs.preview_hunk, { desc = "Preview Git Hunk" })
         map('n', '<leader>hb', gs.blame_line, { desc = "Blame Current Line" })
         map('n', '<leader>hr', gs.reset_hunk, { desc = "Reset/Undo Git Hunk" })
+        map('n', '<leader>gf', function()
+          if vim.wo.diff then
+            vim.cmd('diffoff!')
+          else
+            vim.cmd('set wrap')
+            gs.diffthis()
+          end
+        end, { desc = "Toggle Git Diff This" })
       end
     })
   end
