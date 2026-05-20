@@ -43,11 +43,18 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
-)
+vim.keymap.set('n', 'zC', function()
+  -- Get the current window width
+  local win_width = vim.api.nvim_win_get_width(0)
+  -- Scroll cursor to the left edge, then scroll text right by half the width
+  vim.cmd('normal! zs' .. math.floor(win_width / 2) .. 'zh')
+end, { desc = "Center cursor horizontally" })
+
+--vim.keymap.set(
+--    "n",
+--    "<leader>ee",
+--    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+--)
 
 --vim.keymap.set(
 --    "n",

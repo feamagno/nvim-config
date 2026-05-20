@@ -1,4 +1,48 @@
+return {}
+
 --return {
+--    {
+--        "lewis6991/gitsigns.nvim",
+--        event = "BufReadPre",
+--        config = function()
+--            require("gitsigns").setup({
+--                on_attach = function(bufnr)
+--                    local gs = require("gitsigns")
+--                    local function map(mode, l, r, opts)
+--                        opts = opts or {}
+--                        opts.buffer = bufnr
+--                        vim.keymap.set(mode, l, r, opts)
+--                    end
+--
+--                    map("n", "]c", function()
+--                        if vim.wo.diff then return "]c" end
+--                        vim.schedule(function() gs.next_hunk() end)
+--                        return "<Ignore>"
+--                    end, { expr = true })
+--
+--                    map("n", "[c", function()
+--                        if vim.wo.diff then return "[c" end
+--                        vim.schedule(function() gs.prev_hunk() end)
+--                        return "<Ignore>"
+--                    end, { expr = true })
+--
+--                    map("n", "<leader>hs", gs.stage_hunk)
+--                    map("v", "<leader>hs", function()
+--                        gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+--                    end)
+--                    map("n", "<leader>hr", gs.reset_hunk)
+--                    map("v", "<leader>hr", function()
+--                        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+--                    end)
+--                    map("n", "<leader>hp", gs.preview_hunk)
+--                    map("n", "<leader>hu", gs.undo_stage_hunk)
+--                    map("n", "<leader>hS", gs.stage_buffer)
+--                    map("n", "<leader>hR", gs.reset_buffer)
+--                    map("n", "<leader>hb", function() gs.blame_line({ full = true }) end)
+--                end,
+--            })
+--        end,
+--    },
 --    {
 --        "nCompass-tech/cursor-review.nvim",
 --        dependencies = {
@@ -12,4 +56,22 @@
 --            require("cursor-review").setup()
 --        end,
 --    }
+--            require("cursor-review").setup({
+--                keymaps = {
+--                    stage_hunk = "",
+--                    reset_hunk = "",
+--                    preview_hunk = "",
+--                    undo_stage = "",
+--                    stage_buffer = "",
+--                    reset_buffer = "",
+--                    blame_line = "",
+--                    toggle_blame = "",
+--                    diff_this = "",
+--                    diff_last = "",
+--                    next_hunk = "",
+--                    prev_hunk = "",
+--                },
+--            })
+--        end,
+--    },
 --}
