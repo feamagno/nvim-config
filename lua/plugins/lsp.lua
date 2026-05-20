@@ -42,6 +42,40 @@ return {
         -- fidget.nvim (disable spam)
         require("fidget").setup({ enabled = false })
 
+        -- Configure jdtls via vim.lsp.config (Neovim 0.11+)
+        local java_exec = "/opt/homebrew/opt/openjdk/bin/java"
+        local java_home = vim.fn.fnamemodify(java_exec, ":h:h")
+        local jdtls_bin = vim.fn.stdpath("data") .. "/mason/bin/jdtls"
+        if vim.fn.executable(jdtls_bin) == 0 then jdtls_bin = "jdtls" end
+
+        vim.lsp.config("jdtls", {
+            cmd = { jdtls_bin, "--java-executable", java_exec },
+            capabilities = capabilities,
+            root_markers = { "pom.xml", "gradlew", "build.gradle", ".git" },
+            settings = {
+                java = {
+                    format = { enabled = true },
+                    configuration = {
+                        runtimes = {
+                            {
+                                name = "JavaSE-1.8",
+                                path = "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home",
+                                default = true,
+                            },
+                            {
+                                name = "JavaSE-25",
+                                path = java_home,
+                            },
+                        },
+                    },
+                    eclipse = { downloadSources = true },
+                    maven = { downloadSources = true },
+                    implementationsCodeLens = { enabled = true },
+                    referencesCodeLens = { enabled = true },
+                }
+            },
+        })
+
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
@@ -57,6 +91,8 @@ return {
                         capabilities = capabilities
                     }
                 end,
+
+                ["jdtls"] = function() end,
 
                 zls = function()
                     local lspconfig = require("lspconfig")
@@ -98,41 +134,6 @@ return {
                     lspconfig.tailwindcss.setup({
                         capabilities = capabilities,
                         filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte", "heex" },
-                    })
-                end,
-                ["jdtls"] = function()
-                    local lspconfig = require("lspconfig")
-                    -- This find_root function ensures we are at the project level (pom.xml/gradle)
-                    local root_dir = lspconfig.util.root_pattern("pom.xml", "gradlew", ".git")(vim.fn.expand("%:p:h"))
-                    -- If no root is found, don't start to avoid "single file mode" blindness
-                    if not root_dir then return end
-                    local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
-                    lspconfig.jdtls.setup({
-                        cmd = { "jdtls", "-data", workspace_dir },
-                        capabilities = capabilities, -- Uses the capabilities defined in your lsp.lua
-                        root_dir = root_dir,
-                        settings = {
-                            java = {
-                                format = { enabled = true },
-                                configuration = {
-                                    runtimes = {
-                                        {
-                                            name = "JavaSE-17",
-                                            path = "/usr/lib/jvm/java-17-openjdk",
-                                            default = true, -- This tells Neovim to use 17 for this project
-                                        },
-                                        {
-                                            name = "JavaSE-21",
-                                            path = "/usr/lib/jvm/java-21-openjdk",
-                                        },
-                                    },
-                                },
-                                eclipse = { downloadSources = true },
-                                maven = { downloadSources = true },
-                                implementationsCodeLens = { enabled = true },
-                                referencesCodeLens = { enabled = true },
-                            }
-                        },
                     })
                 end,
             }
