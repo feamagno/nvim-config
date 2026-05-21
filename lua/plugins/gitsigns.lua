@@ -43,10 +43,16 @@ return {
         map('n', '<leader>hr', gs.reset_hunk, { desc = "Reset/Undo Git Hunk" })
         map('n', '<leader>gf', function()
           if vim.wo.diff then
+            local cur_buf = vim.api.nvim_get_current_buf()
             vim.cmd('diffoff!')
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+              if vim.api.nvim_win_get_buf(win) ~= cur_buf then
+                vim.api.nvim_win_close(win, true)
+              end
+            end
           else
-            vim.cmd('set wrap')
             gs.diffthis()
+            vim.cmd('windo set wrap')
           end
         end, { desc = "Toggle Git Diff This" })
       end
