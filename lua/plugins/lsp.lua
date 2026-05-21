@@ -48,6 +48,22 @@ return {
         local jdtls_bin = vim.fn.stdpath("data") .. "/mason/bin/jdtls"
         if vim.fn.executable(jdtls_bin) == 0 then jdtls_bin = "jdtls" end
 
+        -- Configure kotlin-language-server via vim.lsp.config (Neovim 0.11+)
+        -- KLS 1.3.x can't parse Java 25 version strings; use JDK 21 instead
+        local kls_java_home = "/opt/homebrew/opt/openjdk@21"
+        local kls_bin = vim.fn.stdpath("data") .. "/mason/bin/kotlin-language-server"
+        if vim.fn.executable(kls_bin) == 0 then kls_bin = "kotlin-language-server" end
+
+        vim.lsp.config("kotlin_language_server", {
+            cmd = { kls_bin },
+            cmd_env = { JAVA_HOME = kls_java_home },
+            capabilities = capabilities,
+            root_markers = { "build.gradle", "build.gradle.kts", "pom.xml", "settings.gradle", "settings.gradle.kts", ".git" },
+        })
+
+        -- Disable kotlin_lsp (JetBrains pre-alpha) — we use kotlin_language_server instead
+        vim.lsp.enable("kotlin_lsp", false)
+
         vim.lsp.config("jdtls", {
             cmd = { jdtls_bin, "--java-executable", java_exec },
             capabilities = capabilities,
@@ -83,6 +99,7 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "jdtls",
+                "kotlin_language_server",
                 "tailwindcss",
             },
             handlers = {
@@ -93,6 +110,7 @@ return {
                 end,
 
                 ["jdtls"] = function() end,
+                ["kotlin_language_server"] = function() end,
 
                 zls = function()
                     local lspconfig = require("lspconfig")
