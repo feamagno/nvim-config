@@ -30,3 +30,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "100"
 
 vim.opt.guicursor = "a:block"
+
+vim.opt.wrap = true          -- Enable line wrapping
+vim.opt.linebreak = true     -- Wrap lines at convenient points (like spaces) instead of mid-word
