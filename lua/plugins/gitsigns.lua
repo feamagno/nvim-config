@@ -51,10 +51,23 @@ return {
               end
             end
           else
-            gs.diffthis()
+            gs.diffthis(nil, { vertical = false })
             vim.cmd('windo set wrap')
           end
         end, { desc = "Toggle Git Diff This" })
+
+        map('n', '<leader>gt', function()
+          if vim.wo.diff then
+            local wins = vim.api.nvim_tabpage_list_wins(0)
+            if #wins < 2 then return end
+            local is_vertical = vim.api.nvim_win_get_width(wins[1]) ~= vim.o.columns
+            vim.api.nvim_set_current_win(wins[1])
+            vim.cmd(is_vertical and 'wincmd K' or 'wincmd H')
+          else
+            gs.diffthis(nil, { vertical = true })
+          end
+          vim.cmd('windo set wrap')
+        end, { desc = "Toggle Diff Split Direction" })
       end
     })
   end
