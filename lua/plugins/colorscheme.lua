@@ -1,21 +1,44 @@
 function ColorMyPencils(color)
-    color = color or "kanagawa"
+    color = color or "gruvbox"
+    vim.o.background = "light"
     vim.cmd.colorscheme(color)
-
-    vim.api.nvim_set_hl(0, "Normal", {bg = none})
-    vim.api.nvim_set_hl(0, "NormalFloat", {bg = none})
 end
 
 return {
-    -- the colorscheme should be available when starting Neovim
     {
         "rebelot/kanagawa.nvim",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme 
-        priority = 1000, -- make sure to load this before all the other start plugins 
+        lazy = true,
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = true,
+        priority = 1000,
         config = function()
-            -- load the colorscheme here
-            vim.cmd([[colorscheme kanagawa]])
-            ColorMyPencils()
+            require("catppuccin").setup({
+                flavour = "frappe",
+                transparent_background = false,
+                integrations = {
+                    gitsigns = true,
+                    harpoon = true,
+                    mason = true,
+                    native_lsp = { enabled = true },
+                    neotree = true,
+                    telescope = { enabled = true },
+                    treesitter = true,
+                },
+            })
+        end,
+    },
+    {
+        "ellisonleao/gruvbox.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("gruvbox").setup({
+                contrast = "soft",
+            })
+            ColorMyPencils("gruvbox")
         end,
     },
     {
