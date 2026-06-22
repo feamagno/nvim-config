@@ -1,5 +1,6 @@
 -- Leader key
 vim.g.mapleader = ' ' -- Space as the leader key
+vim.g.maplocalleader = ','
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
