@@ -51,12 +51,14 @@ vim.keymap.set('n', 'zC', function()
   vim.cmd('normal! zs' .. math.floor(win_width / 2) .. 'zh')
 end, { desc = "Center cursor horizontally" })
 
+-- move up and down by wrapped lines unless a count is provided
 vim.keymap.set('n', 'j', function()
   return vim.v.count == 0 and 'gj' or 'j'
-end, { noremap = true, silent = true, expr = true })
+end, { expr = true, silent = true })
+
 vim.keymap.set('n', 'k', function()
   return vim.v.count == 0 and 'gk' or 'k'
-end, { noremap = true, silent = true, expr = true })
+end, { expr = true, silent = true })
 
 --vim.keymap.set(
 --    "n",
@@ -86,7 +88,11 @@ end, { noremap = true, silent = true, expr = true })
 --    require("cellular-automaton").start_animation("make_it_rain")
 --end)
 
+vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "kk", "<Esc>", { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
-
