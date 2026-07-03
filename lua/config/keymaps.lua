@@ -87,6 +87,11 @@ end, { expr = true, silent = true })
 --    require("cellular-automaton").start_animation("make_it_rain")
 --end)
 
+vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "kj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "kk", "<Esc>", { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
