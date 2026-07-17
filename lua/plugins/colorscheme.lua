@@ -1,18 +1,24 @@
 function ColorMyPencils(color)
     color = color or "gruvbox"
-    vim.o.background = "light"
+    vim.o.background = "dark"
     vim.cmd.colorscheme(color)
 end
 
 return {
     {
         "rebelot/kanagawa.nvim",
-        lazy = true,
+        name = "kanagawa",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("kanagawa")
+            ColorMyPencils("kanagawa")
+        end
     },
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = false,
+        lazy = true,
         priority = 1000,
         config = function()
             require("catppuccin").setup({
